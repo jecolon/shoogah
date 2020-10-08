@@ -1,0 +1,13 @@
+[package]
+name = "shoogah"
+version = "0.1.0"
+authors = ["Jose Colon Rodriguez <jec.rod@gmail.com>"]
+edition = "2018"
+description = "Add some syntactic 'shoogah' to Rust."
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = "1"
+syn = { version = "1", features = ["full"] }
