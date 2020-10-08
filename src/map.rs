@@ -1,9 +1,11 @@
+use proc_macro::TokenStream;
+use quote::quote;
 use syn::parse::{Parse, ParseStream, Result};
 use syn::punctuated::Punctuated;
-use syn::{Expr, Ident, Lit, Token};
+use syn::{parse_macro_input, Expr, Ident, Lit, Token};
 
 // `Key` can only be an identifier or literal.
-pub enum Key {
+enum Key {
     Variable(Ident),
     Literal(Lit),
 }
@@ -22,9 +24,9 @@ impl Parse for Key {
 
 // `MapEntry` has a key (type `Key`) and a value (any expression) separated by
 // a colon.
-pub struct MapEntry {
-    pub key: Key,
-    pub value: Expr,
+struct MapEntry {
+    key: Key,
+    value: Expr,
 }
 
 impl Parse for MapEntry {
@@ -38,8 +40,8 @@ impl Parse for MapEntry {
 
 // MapLiteral is a sequence of `MapEntry` separated by commas. `[:]` is an empty
 // map.
-pub struct MapLiteral {
-    pub entries: Option<Punctuated<MapEntry, Token![,]>>,
+struct MapLiteral {
+    entries: Option<Punctuated<MapEntry, Token![,]>>,
 }
 
 impl Parse for MapLiteral {
@@ -52,5 +54,43 @@ impl Parse for MapLiteral {
             entries = Some(input.parse_terminated(MapEntry::parse)?);
         }
         Ok(MapLiteral { entries })
+    }
+}
+
+// map macro implementation.
+pub fn map_impl(input: TokenStream) -> TokenStream {
+    let MapLiteral { entries } = parse_macro_input!(input as MapLiteral);
+
+    if let Some(entries) = entries {
+        // Map with entries.
+        let mut inserts = vec![];
+        for MapEntry { key, value } in entries {
+            match key {
+                Key::Variable(ident) => {
+                    inserts.push(quote! {
+                        temp_map.insert(#ident, #value);
+                    });
+                }
+                Key::Literal(lit) => {
+                    inserts.push(quote! {
+                        temp_map.insert(#lit, #value);
+                    });
+                }
+            }
+        }
+
+        let capacity = inserts.len();
+        TokenStream::from(quote! {
+            {
+                let mut temp_map = std::collections::HashMap::with_capacity(#capacity);
+                #(#inserts)*
+                temp_map
+            }
+        })
+    } else {
+        // Empty map.
+        TokenStream::from(quote! {
+            std::collections::HashMap::new()
+        })
     }
 }

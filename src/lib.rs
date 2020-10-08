@@ -3,10 +3,8 @@
 
 mod map;
 
-use map::{Key, MapEntry, MapLiteral};
+use map::map_impl;
 use proc_macro::TokenStream;
-use quote::quote;
-use syn::parse_macro_input;
 
 /// map lets you define a `std::collections::HashMap` via a simple literal.
 ///
@@ -29,38 +27,5 @@ use syn::parse_macro_input;
 /// trait requirements apply.
 #[proc_macro]
 pub fn map(input: TokenStream) -> TokenStream {
-    let MapLiteral { entries } = parse_macro_input!(input as MapLiteral);
-
-    if let Some(entries) = entries {
-        // Map with entries.
-        let mut inserts = vec![];
-        for MapEntry { key, value } in entries {
-            match key {
-                Key::Variable(ident) => {
-                    inserts.push(quote! {
-                        temp_map.insert(#ident, #value);
-                    });
-                }
-                Key::Literal(lit) => {
-                    inserts.push(quote! {
-                        temp_map.insert(#lit, #value);
-                    });
-                }
-            }
-        }
-
-        let capacity = inserts.len();
-        TokenStream::from(quote! {
-            {
-                let mut temp_map = std::collections::HashMap::with_capacity(#capacity);
-                #(#inserts)*
-                temp_map
-            }
-        })
-    } else {
-        // Empty map.
-        TokenStream::from(quote! {
-            std::collections::HashMap::new()
-        })
-    }
+    map_impl(input)
 }
