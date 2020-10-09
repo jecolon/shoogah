@@ -11,3 +11,4 @@ proc-macro = true
 [dependencies]
 quote = "1"
 syn = { version = "1", features = ["full"] }
+as_bool = { path = "../as_bool" }
