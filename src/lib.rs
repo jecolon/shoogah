@@ -8,7 +8,7 @@
 mod cxp;
 mod map;
 
-use cxp::{cxp_impl, elv_impl};
+use cxp::{cxp_impl, ela_impl, elv_impl};
 use map::map_impl;
 use proc_macro::TokenStream;
 
@@ -64,4 +64,21 @@ pub fn cxp(input: TokenStream) -> TokenStream {
 #[proc_macro]
 pub fn elv(input: TokenStream) -> TokenStream {
     elv_impl(input)
+}
+
+/// ela lets you express an if/else in a manner shorter than the cxp and elv
+/// macros when the result and assigned-to variable is the same as the condition.
+/// In other words, assignment only occurs if the left hand side evaluates to false.
+///
+/// For example:
+/// ```ignore
+///     let mut username = "";
+///     ela!{ (username) ?= ("José")) }; // username == "José"
+/// ```
+/// This expands to a normal Rust if/else expression, so Rust syntax and type
+/// rules apply to the expressions. Given how complex expressions can be, the
+/// parentheses are required.
+#[proc_macro]
+pub fn ela(input: TokenStream) -> TokenStream {
+    ela_impl(input)
 }
