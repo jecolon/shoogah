@@ -37,9 +37,14 @@ fn elvis() {
 #[test]
 fn elvis_assign() {
     let mut a = vec![1, 2, 3];
-    let b = vec![4, 56];
+    let b = vec![4, 5];
     ela! { (a) ?= (b) };
     assert_eq!(a.len(), 3);
+
+    let mut a = vec![1, 2, 3];
+    let b = vec![4, 5];
+    ela! { !(a) ?= (b) };
+    assert_eq!(a.len(), 2);
 
     let mut a = vec![];
     let b = vec![4, 56];

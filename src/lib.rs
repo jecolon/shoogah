@@ -7,10 +7,12 @@
 
 mod cxp;
 mod map;
+mod suf;
 
 use cxp::{cxp_impl, ela_impl, elv_impl};
 use map::map_impl;
 use proc_macro::TokenStream;
+use suf::suf_impl;
 
 /// map lets you define a `std::collections::HashMap` via a simple literal.
 ///
@@ -81,4 +83,18 @@ pub fn elv(input: TokenStream) -> TokenStream {
 #[proc_macro]
 pub fn ela(input: TokenStream) -> TokenStream {
     ela_impl(input)
+}
+
+/// suf is shorthand for incrementing or decrementing a number by 1.
+///
+/// For example:
+/// ```ignore
+///     let mut x = 1;
+///     assert_eq!(2, suf!{ x++ });
+///     assert_eq!(1, suf!{ x-- });
+/// ```
+/// This expands to a normal Rust expresion like x += 1, so normal type rules apply.
+#[proc_macro]
+pub fn suf(input: TokenStream) -> TokenStream {
+    suf_impl(input)
 }
