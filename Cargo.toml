@@ -5,10 +5,6 @@ authors = ["Jose Colon Rodriguez <jec.rod@gmail.com>"]
 edition = "2018"
 description = "Add some syntactic 'shoogah' to Rust."
 
-[lib]
-proc-macro = true
-
 [dependencies]
-quote = "1"
-syn = { version = "1", features = ["full"] }
 as_bool = { path = "../as_bool" }
+shoogah_macros = { path = "../shoogah_macros" }
