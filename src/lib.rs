@@ -66,6 +66,33 @@
 //!     assert_eq!(1, suf!{ x-- });
 //! ```
 //!
+//! # Collect common field values from an `Iterator` with the spr! macro
+//! ```
+//!     # #[macro_use] extern crate shoogah;
+//!     #[derive(Clone)]
+//!     struct Address<'a> {
+//!         country: &'a str,
+//!     }
+//!
+//!     #[derive(Clone)]
+//!     struct Customer<'c> {
+//!         name: &'c str,
+//!         address: Address<'c>,
+//!     }
+//!
+//!    let customers = vec![
+//!        Customer{ name: "Carlos", address: Address{ country: "Spain" }},
+//!        Customer{ name: "Johnathan", address: Address{ country: "United Kingdom" }},
+//!        Customer{ name: "Enzo", address: Address{ country: "Italy" }},
+//!    ];
+//!    let countries: Vec<_> = spr! { (customers)*.address*.country };
+//!    assert_eq!(vec!["Spain", "United Kingdom", "Italy"], countries);
+//! ```
+//! Note that the operation requires collections that implement `Iterator` and 
+//! items that implement `Clone`, given they are moved out of the original. Also
+//! note that parentheses are required for the first expression, allowing for 
+//! chaining and literals as the initial collection.
+//!
 //! # It's all still Rust under the hood
 //! All these macros expand into normal Rust code, so the usual syntax and type
 //! requirements will apply to variable names, literals, and expressions that you
