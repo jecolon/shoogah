@@ -21,8 +21,18 @@
 //!     let mut my_map = hml![:];
 //!     my_map.insert("a", 1);
 //! ```
-//! Map keys can be identifiers (variable names) or lietral expressions like `1`
-//! or `"Hello"`. Map values are expressions.
+//! Note that in the case of an empty map declaration like this one, only after
+//! you insert an entry will the map have its type inferred. So if you try to use
+//! the empty map before inserting any entries, you'll get a compiler error. If
+//! your use case requires the empty map, add type annotations to the left hand
+//! side like this:
+//! ```
+//!     # #[macro_use] extern crate shoogah;
+//!     use std::collections::HashMap;
+//!     let mut my_map: HashMap<&str, u8> = hml![:];
+//! ```
+//! Map keys can be identifiers (variable names) or lietrals like `1` or `"Hello"`.
+//! Map values can be any type of expression.
 //!
 //! # Compact conditional expressions with the cxp! macro
 //! ```
@@ -45,7 +55,7 @@
 //! ```
 //!     # #[macro_use] extern crate shoogah;
 //!     let mut username = "";
-//!     ela!{ (username) ?= ("Bytor") }; // username is now "Bytor"
+//!     ela!{ username ?= "Bytor" }; // username is now "Bytor"
 //! ```
 //!
 //! # Simple increment and decrement with the suf! macro
