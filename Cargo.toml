@@ -4,7 +4,11 @@ version = "0.1.0"
 authors = ["Jose Colon Rodriguez <jec.rod@gmail.com>"]
 edition = "2018"
 description = "Add some syntactic 'shoogah' to Rust."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/jecolon/shoogah"
+documentation = "https://docs.rs/shoogah"
+readme = "README.md"
 
 [dependencies]
-as_bool = { path = "../as_bool" }
+as_bool = "0.1"
 shoogah_macros = { path = "../shoogah_macros" }
