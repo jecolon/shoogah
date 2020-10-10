@@ -11,4 +11,4 @@ readme = "README.md"
 
 [dependencies]
 as_bool = "0.1"
-shoogah_macros = { path = "../shoogah_macros" }
+shoogah_macros = "0.1"
