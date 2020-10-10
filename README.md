@@ -8,7 +8,7 @@ In these cases, we make use of the `AsBool` trait. Any type that implements
 # Easy HashMap literals with the hml! macro
 Define a `std::collections::HashMap` via a simple literal.
 ```
-    # #[macro_use] extern crate shoogah;
+    #[macro_use] extern crate shoogah;
     let my_map = hml! [
         "a": 1,
         "b": 2,
@@ -18,7 +18,7 @@ Define a `std::collections::HashMap` via a simple literal.
 In this example, `my_map` is of type `std::collections::HashMap<&str, i32>`.
 To create an empty map:
 ```
-    # #[macro_use] extern crate shoogah;
+    #[macro_use] extern crate shoogah;
     let mut my_map = hml![:];
     my_map.insert("a", 1);
 ```
@@ -28,7 +28,7 @@ the empty map before inserting any entries, you'll get a compiler error. If
 your use case requires the empty map, add type annotations to the left hand
 side like this:
 ```
-    # #[macro_use] extern crate shoogah;
+    #[macro_use] extern crate shoogah;
     use std::collections::HashMap;
     let mut my_map: HashMap<&str, u8> = hml![:];
 ```
@@ -37,7 +37,7 @@ Map values can be any type of expression.
 
 # Compact conditional expressions with the cxp! macro
 ```
-    # #[macro_use] extern crate shoogah;
+    #[macro_use] extern crate shoogah;
     let x = "";
     let username = cxp!{ (x) ? (x) : ("Bytor") }; // username assigned "Bytor"
 ```
@@ -45,7 +45,7 @@ Given how complex expressions can be, the parentheses are required.
 
 # Elvis says: "Don't Repeat Yourself"; elv! macro
 ```
-    # #[macro_use] extern crate shoogah;
+    #[macro_use] extern crate shoogah;
     let x = "Cygnus";
     let username = elv!{ (x) ?: ("Bytor") }; // username remains "Cygnus"
 ```
@@ -54,14 +54,14 @@ Given how complex expressions can be, the parentheses are required.
 If the assigned-to variable is the condition being tested, the Elvis
 assignment macro (ela!) is for you.
 ```
-    # #[macro_use] extern crate shoogah;
+    #[macro_use] extern crate shoogah;
     let mut username = "";
     ela!{ username ?= "Bytor" }; // username is now "Bytor"
 ```
 
 # Simple increment and decrement with the suf! macro
 ```
-    # #[macro_use] extern crate shoogah;
+    #[macro_use] extern crate shoogah;
     let mut x = 1;
     assert_eq!(2, suf!{ x++ });
     assert_eq!(1, suf!{ x-- });
@@ -69,7 +69,7 @@ assignment macro (ela!) is for you.
 
 # Collect common field values from an `Iterator` with the spr! macro
 ```
-    # #[macro_use] extern crate shoogah;
+    #[macro_use] extern crate shoogah;
     #[derive(Clone)]
     struct Address<'a> {
         country: &'a str,
