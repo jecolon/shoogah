@@ -1,4 +1,5 @@
-/*! shoogah is a crate with all sorts of syntactic sugar for Rust. Many of the
+# shoogah
+A crate with all sorts of syntactic sugar for Rust. Many of the
 items are inspired from the goodness of other languages, especially *Groovy*.
 Some operations require an expanded notion of what is *true* and what is *false*.
 In these cases, we make use of the `AsBool` trait. Any type that implements
@@ -88,16 +89,12 @@ assignment macro (ela!) is for you.
    let countries: Vec<_> = spr! { (customers)*.address*.country };
    assert_eq!(vec!["Spain", "United Kingdom", "Italy"], countries);
 ```
-Note that the operation requires collections that implement `Iterator` and
+Note that the operation requires collections that implement `Iterator` and 
 items that implement `Clone`, given they are moved out of the original. Also
-note that parentheses are required for the first expression, allowing for
+note that parentheses are required for the first expression, allowing for 
 chaining and literals as the initial collection.
 
 # It's all still Rust under the hood
 All these macros expand into normal Rust code, so the usual syntax and type
 requirements will apply to variable names, literals, and expressions that you
 use.
-**/
-
-pub use as_bool::AsBool;
-pub use shoogah_macros::*;

@@ -30,9 +30,20 @@ struct Customer<'c> {
 #[test]
 fn spread_chain() {
     let customers = vec![
-        Customer{ name: "Carlos", address: Address{ country: "Spain" }},
-        Customer{ name: "Johnathan", address: Address{ country: "United Kingdom" }},
-        Customer{ name: "Enzo", address: Address{ country: "Italy" }},
+        Customer {
+            name: "Carlos",
+            address: Address { country: "Spain" },
+        },
+        Customer {
+            name: "Johnathan",
+            address: Address {
+                country: "United Kingdom",
+            },
+        },
+        Customer {
+            name: "Enzo",
+            address: Address { country: "Italy" },
+        },
     ];
     let countries: Vec<_> = spr! { (customers)*.address*.country };
     assert_eq!(vec!["Spain", "United Kingdom", "Italy"], countries);
@@ -40,7 +51,7 @@ fn spread_chain() {
 
 #[test]
 fn literal_spread() {
-    let r: Vec<_> = spr!{
+    let r: Vec<_> = spr! {
         (vec![
             Struct { x: 1 },
             Struct { x: 2 },
