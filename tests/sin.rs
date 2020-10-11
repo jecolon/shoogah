@@ -47,3 +47,9 @@ fn method_interpolate() {
     let msg = sin!("Hello, ${ Foo::bar() }");
     assert_eq!("Hello, Bar!", msg);
 }
+
+#[test]
+fn raw_interpolate() {
+    let msg = sin!(r#"Hello, ${ "hello" }"#);
+    assert_eq!("Hello, hello", msg);
+}

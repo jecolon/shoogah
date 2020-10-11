@@ -96,11 +96,15 @@ chaining and literals as the initial collection.
 # String interpolation with sin!
 ```
     # #[macro_use] extern crate shoogah;
-    let msg = sin!{ "1 + 1 = ${ 1 + 1 }" };
+    // Normal string literal, no inner quotes (") allowed.
+    let mut msg = sin!{ "1 + 1 = ${ 1 + 1 }" };
     assert_eq!("1 + 1 = 2", msg);
+    // Raw string literal, inner quotes (") are allowed.
+    msg = sin!{ r#"Hello, ${ "World!" }"# };
+    assert_eq!("Hello, World!", msg);
 ```
 Expressions within the `${}` can be almost anything except something containing
-a `"` or a `}`.
+a closing brace *}*.
 
 # It's all still Rust under the hood
 All these macros expand into normal Rust code, so the usual syntax and type
