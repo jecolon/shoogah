@@ -1,6 +1,6 @@
 [package]
 name = "shoogah"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["Jose Colon Rodriguez <jec.rod@gmail.com>"]
 edition = "2018"
 description = "Add some syntactic 'shoogah' to Rust."
@@ -11,4 +11,4 @@ readme = "README.md"
 
 [dependencies]
 as_bool = "0.1"
-shoogah_macros = "0.1"
+shoogah_macros = "0.2"

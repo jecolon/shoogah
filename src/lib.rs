@@ -93,6 +93,15 @@ items that implement `Clone`, given they are moved out of the original. Also
 note that parentheses are required for the first expression, allowing for
 chaining and literals as the initial collection.
 
+# String interpolation with sin!
+```
+    # #[macro_use] extern crate shoogah;
+    let msg = sin!{ "1 + 1 = ${ 1 + 1 }" };
+    assert_eq!("1 + 1 = 2", msg);
+```
+Expressions within the `${}` can be almost anything except something containing
+a `"` or a `}`.
+
 # It's all still Rust under the hood
 All these macros expand into normal Rust code, so the usual syntax and type
 requirements will apply to variable names, literals, and expressions that you
