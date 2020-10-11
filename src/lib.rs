@@ -104,7 +104,7 @@ chaining and literals as the initial collection.
     assert_eq!("Hello, World!", msg);
 ```
 Expressions within the `${}` can be almost anything except something containing
-a closing brace *}*.
+a closing brace **}**.
 
 # It's all still Rust under the hood
 All these macros expand into normal Rust code, so the usual syntax and type
