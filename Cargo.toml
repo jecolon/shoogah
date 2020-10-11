@@ -1,6 +1,6 @@
 [package]
 name = "shoogah"
-version = "0.2.3"
+version = "0.2.2"
 authors = ["Jose Colon Rodriguez <jec.rod@gmail.com>"]
 edition = "2018"
 description = "Add some syntactic 'shoogah' to Rust."
