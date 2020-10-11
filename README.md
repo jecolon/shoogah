@@ -96,7 +96,7 @@ chaining and literals as the initial collection.
 
 # String interpolation with sin!
 ```
-    # #[macro_use] extern crate shoogah;
+    #[macro_use] extern crate shoogah;
     let msg = sin!{ "1 + 1 = ${ 1 + 1 }" };
     assert_eq!("1 + 1 = 2", msg);
 ```
