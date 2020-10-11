@@ -106,6 +106,15 @@ chaining and literals as the initial collection.
 Expressions within the `${}` can be almost anything except something containing
 a closing brace **}**.
 
+# Boolean coercion with boo!
+```
+    # #[macro_use] extern crate shoogah;
+    let x = 1; let y = 0;
+    assert_eq!(true, boo!{ x });
+    assert_eq!(false, boo!{ y });
+```
+Here we make use of the rules for what's `true` or `false` from the `AsBool` trait.
+
 # It's all still Rust under the hood
 All these macros expand into normal Rust code, so the usual syntax and type
 requirements will apply to variable names, literals, and expressions that you
